@@ -4,10 +4,12 @@
 library(shiny)
 library(shinyalert)
 library(markdown)
+#library(shinycssloaders)
 
 dat_dir = './data/French2015'
 gene_list = read.csv(file.path(dat_dir, 'obs.gene_list.csv'),header = FALSE, col.names = c('gene'))
 gene_list = gene_list['gene']
+refresh_tag = FALSE
 
 ui <- navbarPage("obsBrain: Observatory of Brain",
                  tabPanel("Gene in Brain",
@@ -23,7 +25,8 @@ ui <- navbarPage("obsBrain: Observatory of Brain",
                                           selected='S100B'),
                               selectInput("gene_hemi",
                                           "Select Hemisphere:",
-                                          choices = c('both','left','right')),
+                                          choices = c('both','left','right'),
+                                          selected = 'left'),
                               selectInput("gene_view",
                                           "Select View:",
                                           choices = c('both','lateral','medial')),
@@ -54,7 +57,11 @@ ui <- navbarPage("obsBrain: Observatory of Brain",
                               
                             ),
                             mainPanel(
-                              plotOutput("obsBrainPlot1")
+                              if(refresh_tag){
+                                withSpinner(plotOutput("obsBrainPlot1"), type=6, color = '#ffd700')
+                              }else{
+                                plotOutput("obsBrainPlot1")
+                              }
                               )
                             )
                           ),
@@ -62,7 +69,7 @@ ui <- navbarPage("obsBrain: Observatory of Brain",
                           fluidRow(
                             column(1),
                             column(8,
-                                   includeMarkdown("about.md")
+                                   includeMarkdown("README.md")
                                    )
                           )
                  )

@@ -6,15 +6,39 @@ library(shiny)
 library(shinyalert)
 library(feather)
 
-# Data Loading
-gene_area_file1 = file.path('./data/French2015', 'obs.DAT/obsDat.feather') 
-gene_area_dat1_all = read_feather(gene_area_file1)
-gene_area_file2 = file.path('./data/Arnatkeviciute2018', 'obs.DAT/obsDat.feather')
-gene_area_dat2_all = read_feather(gene_area_file2)
+gene_area_dat1_all = NULL
+gene_area_dat2_all = NULL
+
+readData <- function(session) {
+  progress <- Progress$new(session)
+  progress$set(value = 0.3, message = 'Loading...')
+  gene_area_file1 = file.path('./data/French2015', 'obs.DAT/obsDat.feather') 
+  gene_area_dat1_all <<- read_feather(gene_area_file1)
+  progress$set(value = 0.75, message = 'Loading...')
+  gene_area_file2 = file.path('./data/Arnatkeviciute2018', 'obs.DAT/obsDat.feather')
+  gene_area_dat2_all <<- read_feather(gene_area_file2)  
+  progress$set(value = 1, message = 'Loading...')
+  progress$close()
+}
+# Data Loading without loading progress
+#gene_area_file1 = file.path('./data/French2015', 'obs.DAT/obsDat.feather') 
+#gene_area_dat1_all = read_feather(gene_area_file1)
+#gene_area_file2 = file.path('./data/Arnatkeviciute2018', 'obs.DAT/obsDat.feather')
+#gene_area_dat2_all = read_feather(gene_area_file2)
 
 server <- function(input, output, session) {
+  #print(1)
+  #dataInput <- reactive({
+  #  data_load(sess, gene_area_file)
+  #})
+  # For loading progress
+  if(is.null(gene_area_dat2_all)){
+    readData(session)
+  }
+
   output$obsBrainPlot1 <- renderPlot({
     gene_atlas = 'dkt'
+
     if(input$gene_src=='French2015_both hemi'){
       dat_dir = './data/French2015'
       gene_area_dat_all = gene_area_dat1_all
@@ -22,7 +46,7 @@ server <- function(input, output, session) {
       dat_dir = './data/Arnatkeviciute2018'
       gene_area_dat_all = gene_area_dat2_all
     }
-    
+
     area_list = read.csv(file.path(dat_dir,'obs.area_list.csv'),header = FALSE, col.names = c('area'))
     area_list = as.character(unlist(area_list['area']))
     hemi_list = read.csv(file.path(dat_dir, 'obs.hemi_list.csv'),header = FALSE, col.names = c('hemi'))
@@ -36,7 +60,7 @@ server <- function(input, output, session) {
     if(!is.element(input$gene_gene, gene_list)){
       shinyalert("Oops!", "This gene might not be included in the Data Source selected!", type = "warning")
       return()
-      }
+    }
     gene_area_dat = as.double(unlist(gene_area_dat_all[input$gene_gene]))
     if(input$gene_rank){
       gene_area_dat = rank(gene_area_dat, ties.method = 'average')
