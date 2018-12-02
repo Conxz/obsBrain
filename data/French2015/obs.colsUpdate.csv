@@ -1,0 +1,71 @@
+RawCols,NewCols
+X,X
+Average donor correlation to median,Average donor correlation to median
+ctx-rh-insula,ctx-rh-insula
+ctx-lh-paracentral,ctx-lh-para central
+ctx-rh-precuneus,ctx-rh-precuneus
+ctx-lh-medialorbitofrontal,ctx-lh-medial orbito frontal
+ctx-rh-inferiortemporal,ctx-rh-inferior temporal
+ctx-rh-medialorbitofrontal,ctx-rh-medial orbito frontal
+ctx-rh-precentral,ctx-rh-pre central
+ctx-rh-lateralorbitofrontal,ctx-rh-lateral orbito frontal
+ctx-rh-parahippocampal,ctx-rh-parahippocampal
+ctx-lh-superiortemporal,ctx-lh-superior temporal
+ctx-lh-parahippocampal,ctx-lh-parahippocampal
+ctx-rh-superiorparietal,ctx-rh-superior parietal
+ctx-lh-precuneus,ctx-lh-precuneus
+ctx-lh-inferiortemporal,ctx-lh-inferior temporal
+ctx-rh-supramarginal,ctx-rh-supramarginal
+ctx-rh-parsopercularis,ctx-rh-pars opercularis
+ctx-rh-lingual,ctx-rh-lingual
+ctx-lh-isthmuscingulate,ctx-lh-isthmus cingulate
+ctx-rh-isthmuscingulate,ctx-rh-isthmus cingulate
+ctx-rh-lateraloccipital,ctx-rh-lateral occipital
+ctx-rh-superiortemporal,ctx-rh-superior temporal
+ctx-lh-entorhinal,ctx-lh-entorhinal
+ctx-rh-temporalpole,ctx-rh-temporal pole
+ctx-lh-superiorparietal,ctx-lh-superior parietal
+ctx-lh-parsorbitalis,ctx-lh-pars orbitalis
+ctx-rh-caudalmiddlefrontal,ctx-rh-caudal middle frontal
+ctx-rh-entorhinal,ctx-rh-entorhinal
+ctx-lh-fusiform,ctx-lh-fusiform
+ctx-rh-pericalcarine,ctx-rh-pericalcarine
+ctx-rh-caudalanteriorcingulate,ctx-rh-caudal anterior cingulate
+ctx-rh-frontalpole,ctx-rh-frontal pole
+ctx-rh-parstriangularis,ctx-rh-pars triangularis
+ctx-rh-postcentral,ctx-rh-post central
+ctx-rh-rostralanteriorcingulate,ctx-rh-rostral anterior cingulate
+ctx-lh-superiorfrontal,ctx-lh-superior frontal
+ctx-lh-rostralanteriorcingulate,ctx-lh-rostral anterior cingulate
+ctx-lh-precentral,ctx-lh-pre central
+ctx-lh-cuneus,ctx-lh-cuneus
+ctx-rh-posteriorcingulate,ctx-rh-posterior cingulate
+ctx-lh-parsopercularis,ctx-lh-pars opercularis
+ctx-lh-insula,ctx-lh-insula
+ctx-rh-transversetemporal,ctx-rh-transverse temporal
+ctx-rh-superiorfrontal,ctx-rh-superior frontal
+ctx-rh-parsorbitalis,ctx-rh-pars orbitalis
+ctx-lh-transversetemporal,ctx-lh-transverse temporal
+ctx-rh-cuneus,ctx-rh-cuneus
+ctx-lh-inferiorparietal,ctx-lh-inferior parietal
+ctx-lh-pericalcarine,ctx-lh-pericalcarine
+ctx-lh-postcentral,ctx-lh-post central
+ctx-lh-supramarginal,ctx-lh-supramarginal
+ctx-rh-fusiform,ctx-rh-fusiform
+ctx-lh-rostralmiddlefrontal,ctx-lh-rostral middle frontal
+ctx-rh-middletemporal,ctx-rh-middle temporal
+ctx-lh-frontalpole,ctx-lh-frontal pole
+ctx-lh-lingual,ctx-lh-lingual
+ctx-lh-lateralorbitofrontal,ctx-lh-lateral orbito frontal
+ctx-lh-bankssts,ctx-lh-banks superior temporal
+ctx-rh-inferiorparietal,ctx-rh-inferior parietal
+ctx-lh-caudalanteriorcingulate,ctx-lh-caudal anterior cingulate
+ctx-lh-lateraloccipital,ctx-lh-lateral occipital
+ctx-lh-posteriorcingulate,ctx-lh-posterior cingulate
+ctx-rh-rostralmiddlefrontal,ctx-rh-rostral middle frontal
+ctx-lh-parstriangularis,ctx-lh-pars triangularis
+ctx-lh-middletemporal,ctx-lh-middle temporal
+ctx-rh-bankssts,ctx-rh-banks superior temporal
+ctx-lh-caudalmiddlefrontal,ctx-lh-caudal middle frontal
+ctx-lh-temporalpole,ctx-lh-temporal pole
+ctx-rh-paracentral,ctx-rh-para central
