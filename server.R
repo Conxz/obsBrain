@@ -132,6 +132,115 @@ server <- function(input, output, session) {
         theme_void()
     }
     })
+  
+  # start obsBrainPlot3--------------------------------------------------------
+  output$viewer_dataSelect <- renderUI({
+    input_file = input$viewer_fileUpload
+    if(is.null(input_file)){return()}
+    viewer_data = read.csv(input_file$datapath)
+    viewer_data_list = colnames(viewer_data)[-c(1,2)]
+    
+    list(hr(),
+         selectInput("viewer_data",
+                     "Select Data of Interest:",
+                     choices = viewer_data_list))
+  })
+  output$obsBrainPlot3 <- renderPlot({
+    if(is.null(input$viewer_fileUpload)){return()}
+    
+    viewer_atlas = 'dkt'
+
+    viewer_data_all = read.csv(input$viewer_fileUpload$datapath)
+    
+    area_list = as.character(unlist(viewer_data_all['area']))
+    hemi_list = as.character(unlist(viewer_data_all['hemi']))
+    hemi_list = gsub('lh','left',hemi_list)
+    hemi_list = gsub('rh','right',hemi_list)
+    
+    if(is.null(input$viewer_data)){
+      input_viewer_data = colnames(viewer_data_all)[-c(1,2)][1]
+    }else{
+      input_viewer_data = input$viewer_data
+    }
+    viewer_area_dat = as.double(unlist(viewer_data_all[input_viewer_data]))
+    if(input$viewer_rank){
+      viewer_area_dat = rank(viewer_area_dat, ties.method = 'average')
+      viewer_legend = 'Effect Rank'
+    }else{
+      viewer_legend = 'Effect'
+    }
+    
+    viewer_data = data.frame(
+      area = area_list,
+      hemi = hemi_list,
+      effect = viewer_area_dat,
+      stringsAsFactors = FALSE)
+
+    if(input$viewer_hemi == 'both'){
+      hemi_input = NULL
+    }else{
+      hemi_input=input$viewer_hemi
+      viewer_data['area'] = viewer_data['area'][viewer_data['hemi']==input$viewer_hemi]
+      viewer_data['effect'] = viewer_data['effect'][viewer_data['hemi']==input$viewer_hemi]
+      viewer_data['hemi'] = viewer_data['hemi'][viewer_data['hemi']==input$viewer_hemi]
+    }
+    if(input$viewer_view == 'both'){
+      view_input = NULL
+    }else{
+      view_input=input$viewer_view
+    }
+    if(input$viewer_plot_area==''){
+      plot_area_input = NULL
+    }else{
+      plot_area_input=gsub(",",";",input$viewer_plot_area)
+      plot_area_input=gsub("^ *| *$","",unlist(strsplit(plot_area_input,';')))
+    }
+    if(input$viewer_position==TRUE){
+      posi_input='stacked'
+    }else{
+      posi_input='dispersed'
+    }
+    if(input$viewer_line_color==TRUE){
+      viewer_line_color = 'black'
+    }else{
+      viewer_line_color = 'white'
+    }
+    
+    if(input$viewer_grid_axis){
+      ggseg(data=viewer_data,
+            atlas=viewer_atlas, 
+            position = posi_input,
+            view = view_input,
+            hemisphere = hemi_input,
+            colour = viewer_line_color,
+            size = input$viewer_line_size,
+            plot.areas = plot_area_input,
+            show.legend = input$viewer_legend,
+            mapping=aes(fill=effect)) +
+        scale_fill_gradient(low = "red", high = "yellow",name = viewer_legend)
+    }else{
+      ggseg(data=viewer_data,
+            atlas=viewer_atlas, 
+            position = posi_input,
+            view = view_input,
+            hemisphere = hemi_input,
+            colour = viewer_line_color,
+            size = input$viewer_line_size,
+            plot.areas = plot_area_input,
+            show.legend = input$viewer_legend,
+            mapping=aes(fill=effect)) + 
+        scale_fill_gradient(low = "red", high = "yellow",name = viewer_legend) + 
+        theme_void()
+    }
+  })
+  output$viewer_tbl <- renderTable({
+    if(is.null(input$viewer_fileUpload)){return()}else{read.csv(input$viewer_fileUpload$datapath)} },  
+                                   striped = TRUE,  
+                                   hover = TRUE)
+
+  # end obsBrainPlot3
+  
+  
 }
 
   

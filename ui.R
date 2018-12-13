@@ -65,13 +65,69 @@ ui <- navbarPage("obsBrain: Observatory of Brain",
                               )
                             )
                           ),
+                 
+                 # start tabPanel About
+                 tabPanel("obsBrain Viewer",
+                          sidebarLayout(
+                            sidebarPanel(
+                              fileInput("viewer_fileUpload", label = "Custom File Upload ...",
+                                        multiple = FALSE,
+                                        accept = c("text/csv",
+                                                   "text/comma-separated-values,text/plain",
+                                                   ".csv")),
+                              uiOutput('viewer_dataSelect'),
+                              selectInput("viewer_hemi",
+                                          "Select Hemisphere:",
+                                          choices = c('both','left','right')),
+                              selectInput("viewer_view",
+                                          "Select View:",
+                                          choices = c('both','lateral','medial')),
+                              conditionalPanel(condition = "input.viewer_hemi=='both'",
+                                               checkboxInput("viewer_position", 
+                                                             "Subplots stacked?",
+                                                             value = TRUE)),
+                              checkboxInput("viewer_grid_axis",
+                                            "With grid and axis information?",
+                                            value = FALSE),
+                              checkboxInput("viewer_legend",
+                                            "Show legend?",
+                                            value = TRUE),
+                              checkboxInput("viewer_rank",
+                                            "Show data rank?",
+                                            value = FALSE),
+                              sliderInput("viewer_line_size",
+                                          "Contour line size:",
+                                          min = 0,
+                                          max = 1,
+                                          step = 0.05,
+                                          value = 0.25),
+                              checkboxInput("viewer_line_color",
+                                            "Contour line in black (or white)?",
+                                            value = TRUE),
+                              textInput("viewer_plot_area",
+                                        "Please Input Area(s) of Interest:",NULL)
+                            ),
+                            mainPanel(
+                              tabsetPanel(
+                                tabPanel("Plot", 
+                                         fluidRow(plotOutput("obsBrainPlot3"))
+                                         ),
+                                tabPanel("Table", 
+                                         tableOutput('viewer_tbl'))
+                              )
+                              )
+                            )
+                          ),
+                 # end tabPanel About
+                 
+                 # start tabPanel About
                  tabPanel("About",
                           fluidRow(
                             column(1),
-                            column(8,
-                                   includeMarkdown("README.md")
-                                   )
+                            column(8,includeMarkdown("README.md"))
+                            )
                           )
-                 )
+                 # end tabPanel About
+                 
                  )
 
