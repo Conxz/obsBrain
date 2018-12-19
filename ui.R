@@ -66,7 +66,7 @@ ui <- navbarPage("obsBrain: Observatory of Brain",
                             )
                           ),
                  
-                 # start tabPanel About
+                 # start tabPanel obsBrain Viewer
                  tabPanel("obsBrain Viewer",
                           sidebarLayout(
                             sidebarPanel(
@@ -118,7 +118,7 @@ ui <- navbarPage("obsBrain: Observatory of Brain",
                               )
                             )
                           ),
-                 # end tabPanel About
+                 # end tabPanel obsBrain Viewer
                  
                  # start tabPanel About
                  tabPanel("About",
