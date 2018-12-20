@@ -1,0 +1,69 @@
+area,hemi,Thickness: GlobalDifAdjusted,Area: GlobalDifAdjusted,Thickness,Area
+banks superior temporal,lh,-0.096,-0.044,-0.352,-0.178
+caudal anterior cingulate,lh,0.042,-0.004,-0.119,-0.128
+caudal middle frontal,lh,0.004,-0.003,-0.363,-0.159
+cuneus,lh,0.056,-0.042,-0.203,-0.17
+entorhinal,lh,-0.057,-0.041,-0.203,-0.149
+fusiform,lh,-0.183,-0.045,-0.491,-0.216
+inferior parietal,lh,0.053,-0.021,-0.362,-0.185
+inferior temporal,lh,-0.14,-0.04,-0.449,-0.207
+isthmus cingulate,lh,-0.127,0.11,-0.309,-0.066
+lateral occipital,lh,0.006,-0.012,-0.331,-0.17
+lateral orbito frontal,lh,-0.086,0.008,-0.398,-0.179
+lingual,lh,-0.07,0,-0.349,-0.148
+medial orbito frontal,lh,0.011,0.069,-0.231,-0.106
+middle temporal,lh,-0.111,-0.022,-0.444,-0.2
+parahippocampal,lh,-0.139,0.016,-0.277,-0.11
+para central,lh,0.114,0.066,-0.253,-0.087
+pars opercularis,lh,-0.029,-0.025,-0.375,-0.151
+pars orbitalis,lh,-0.045,-0.055,-0.319,-0.192
+pars triangularis,lh,-0.012,-0.026,-0.341,-0.137
+pericalcarine,lh,0.106,-0.011,-0.077,-0.133
+post central,lh,0.098,-0.002,-0.261,-0.191
+posterior cingulate,lh,-0.052,0.027,-0.298,-0.117
+pre central,lh,0.064,0.009,-0.343,-0.175
+precuneus,lh,0.145,0.084,-0.301,-0.139
+rostral anterior cingulate,lh,0.026,0.005,-0.182,-0.159
+rostral middle frontal,lh,0.016,0.015,-0.362,-0.196
+superior frontal,lh,-0.018,-0.028,-0.425,-0.222
+superior parietal,lh,0.284,-0.015,-0.209,-0.19
+superior temporal,lh,-0.099,-0.005,-0.44,-0.196
+supramarginal,lh,0.024,0.062,-0.395,-0.12
+frontal pole,lh,-0.014,-0.021,-0.214,-0.099
+temporal pole,lh,-0.037,0.006,-0.246,-0.096
+transverse temporal,lh,0.005,-0.019,-0.253,-0.151
+insula,lh,-0.125,0.075,-0.408,-0.122
+banks superior temporal,rh,-0.094,-0.029,-0.355,-0.173
+caudal anterior cingulate,rh,0.009,-0.034,-0.152,-0.156
+caudal middle frontal,rh,0.052,-0.02,-0.317,-0.163
+cuneus,rh,0.028,-0.005,-0.226,-0.155
+entorhinal,rh,-0.011,-0.015,-0.15,-0.098
+fusiform,rh,-0.243,-0.057,-0.536,-0.22
+inferior parietal,rh,0.099,-0.03,-0.348,-0.192
+inferior temporal,rh,-0.144,-0.034,-0.439,-0.206
+isthmus cingulate,rh,-0.129,0.14,-0.308,-0.04
+lateral occipital,rh,0.016,-0.004,-0.342,-0.158
+lateral orbito frontal,rh,-0.042,0.04,-0.358,-0.15
+lingual,rh,-0.109,-0.012,-0.386,-0.168
+medial orbito frontal,rh,-0.002,-0.003,-0.244,-0.182
+middle temporal,rh,-0.031,-0.023,-0.379,-0.211
+parahippocampal,rh,-0.123,0.005,-0.285,-0.132
+para central,rh,0.158,0.028,-0.216,-0.117
+pars opercularis,rh,-0.112,-0.018,-0.424,-0.146
+pars orbitalis,rh,-0.051,-0.038,-0.339,-0.175
+pars triangularis,rh,-0.04,-0.037,-0.373,-0.135
+pericalcarine,rh,0.088,0.017,-0.086,-0.107
+post central,rh,0.049,0.023,-0.281,-0.178
+posterior cingulate,rh,-0.063,0.033,-0.31,-0.125
+pre central,rh,0.081,-0.027,-0.317,-0.206
+precuneus,rh,0.138,0.065,-0.304,-0.154
+rostral anterior cingulate,rh,0.086,-0.022,-0.12,-0.156
+rostral middle frontal,rh,0.076,0.012,-0.313,-0.191
+superior frontal,rh,0.023,-0.03,-0.397,-0.222
+superior parietal,rh,0.27,0.011,-0.219,-0.17
+superior temporal,rh,-0.099,0.005,-0.438,-0.195
+supramarginal,rh,0.023,0.037,-0.386,-0.142
+frontal pole,rh,-0.018,-0.004,-0.207,-0.092
+temporal pole,rh,-0.036,-0.023,-0.236,-0.103
+transverse temporal,rh,-0.006,-0.038,-0.262,-0.168
+insula,rh,-0.13,0.065,-0.406,-0.113

@@ -5,6 +5,7 @@ library(ggseg)
 library(shiny)
 library(shinyalert)
 library(feather)
+library(scales)
 
 gene_area_dat1_all = NULL
 gene_area_dat2_all = NULL
@@ -133,6 +134,128 @@ server <- function(input, output, session) {
     }
     })
   
+  # start obsBrainPlot2--------------------------------------------------------
+  output$enigma_dataSelect <- renderUI({
+    input_file = file.path('./data/ENIGMA',paste(input$enigma_src, '.obs.csv', sep=""))
+    if(!file.exists(input_file)){return()}
+    enigma_data = read.csv(input_file)
+    enigma_data_list = colnames(enigma_data)[-c(1,2)]
+    
+    list(
+         selectInput("enigma_data",
+                     "Select Effect of Interest:",
+                     choices = enigma_data_list, 
+                     selected = enigma_data_list[1])
+         )
+  })
+  output$obsBrainPlot2 <- renderPlot({
+    input_file = file.path('./data/ENIGMA',paste(input$enigma_src, '.obs.csv', sep=""))
+    if(!file.exists(input_file)){return()}
+    if(grepl('Lateralization', input$enigma_src, fixed=TRUE)){
+      updateSelectInput(session, "enigma_hemi", selected = 'left')
+    }
+    
+    enigma_atlas = 'dkt'
+    
+    enigma_data_all = read.csv(input_file)
+    
+    area_list = as.character(unlist(enigma_data_all['area']))
+    hemi_list = as.character(unlist(enigma_data_all['hemi']))
+    hemi_list = gsub('lh','left',hemi_list)
+    hemi_list = gsub('rh','right',hemi_list)
+    
+    if(is.null(input$enigma_data)){
+      input_enigma_data = colnames(enigma_data_all)[-c(1,2)][1]
+    }else if(!is.element(input$enigma_data, colnames(enigma_data_all)[-c(1,2)])){
+      input_enigma_data = colnames(enigma_data_all)[-c(1,2)][1]
+    }else{
+      input_enigma_data = input$enigma_data
+    }
+    enigma_area_dat = as.double(unlist(enigma_data_all[input_enigma_data]))
+    
+    
+    if(input$enigma_rank){
+      enigma_area_dat = rank(enigma_area_dat, ties.method = 'average')
+      enigma_legend = 'Effect Rank'
+      pscale_fill = scale_fill_gradient(low = "red", high = "yellow", name = enigma_legend)
+    }else{
+      enigma_legend = 'Effect Size'
+      pscale_fill = scale_fill_gradient2(midpoint = 0, low = "blue", high = "red", mid="white", 
+                                         limits = c(-input$enigma_limits, input$enigma_limits), oob=squish,
+                                         name = enigma_legend)
+    }
+    
+    enigma_data = data.frame(
+      area = area_list,
+      hemi = hemi_list,
+      effect = enigma_area_dat,
+      stringsAsFactors = FALSE)
+    
+    if(input$enigma_hemi == 'both'){
+      hemi_input = NULL
+    }else{
+      hemi_input=input$enigma_hemi
+      enigma_data['area'] = enigma_data['area'][enigma_data['hemi']==input$enigma_hemi]
+      enigma_data['effect'] = enigma_data['effect'][enigma_data['hemi']==input$enigma_hemi]
+      enigma_data['hemi'] = enigma_data['hemi'][enigma_data['hemi']==input$enigma_hemi]
+    }
+    if(input$enigma_view == 'both'){
+      view_input = NULL
+    }else{
+      view_input=input$enigma_view
+    }
+    if(input$enigma_plot_area==''){
+      plot_area_input = NULL
+    }else{
+      plot_area_input=gsub(",",";",input$enigma_plot_area)
+      plot_area_input=gsub("^ *| *$","",unlist(strsplit(plot_area_input,';')))
+    }
+    if(input$enigma_position==TRUE){
+      posi_input='stacked'
+    }else{
+      posi_input='dispersed'
+    }
+    if(input$enigma_line_color==TRUE){
+      enigma_line_color = 'black'
+    }else{
+      enigma_line_color = 'white'
+    }
+
+    if(input$enigma_grid_axis){
+      ggseg(data=enigma_data,
+            atlas=enigma_atlas, 
+            position = posi_input,
+            view = view_input,
+            hemisphere = hemi_input,
+            colour = enigma_line_color,
+            size = input$enigma_line_size,
+            plot.areas = plot_area_input,
+            show.legend = input$enigma_legend,
+            mapping=aes(fill=effect)) +
+        pscale_fill
+    }else{ #, limits = c(-0.3, 0.3)
+      ggseg(data=enigma_data,
+            atlas=enigma_atlas, 
+            position = posi_input,
+            view = view_input,
+            hemisphere = hemi_input,
+            colour = enigma_line_color,
+            size = input$enigma_line_size,
+            plot.areas = plot_area_input,
+            show.legend = input$enigma_legend,
+            mapping=aes(fill=effect)) + 
+        pscale_fill + 
+        theme_void() 
+    }
+  })
+  output$enigma_tbl <- renderTable({
+    input_file = file.path('./data/ENIGMA',paste(input$enigma_src, '.obs.csv', sep=""))
+    if(!file.exists(input_file)){return()}else{read.csv(input_file)[c('area','hemi',input$enigma_data)]} },  
+    striped = TRUE,  
+    hover = TRUE)
+  
+  # end obsBrainPlot2
+  
   # start obsBrainPlot3--------------------------------------------------------
   output$viewer_dataSelect <- renderUI({
     input_file = input$viewer_fileUpload
@@ -234,7 +357,7 @@ server <- function(input, output, session) {
     }
   })
   output$viewer_tbl <- renderTable({
-    if(is.null(input$viewer_fileUpload)){return()}else{read.csv(input$viewer_fileUpload$datapath)} },  
+    if(is.null(input$viewer_fileUpload)){return()}else{read.csv(input$viewer_fileUpload$datapath)[c('area','hemi',input$viewer_data)]} },  
                                    striped = TRUE,  
                                    hover = TRUE)
 

@@ -66,6 +66,73 @@ ui <- navbarPage("obsBrain: Observatory of Brain",
                             )
                           ),
                  
+                 # start tabPanel ENIGMA in Brain
+                 tabPanel("ENIGMA in Brain",
+                          sidebarLayout(
+                            sidebarPanel(
+                              selectInput("enigma_src",
+                                          "Select Working Group:",
+                                          choices = c('Lateralization', 
+                                                      #'LateralizationOCD', 
+                                                      'MDD',
+                                                      'OCD',
+                                                      'ASD', 
+                                                      'SCZ',
+                                                      'BD')),
+                              uiOutput('enigma_dataSelect'),
+                              selectInput("enigma_hemi",
+                                          "Select Hemisphere:",
+                                          choices = c('both','left','right')),
+                              selectInput("enigma_view",
+                                          "Select View:",
+                                          choices = c('both','lateral','medial')),
+                              conditionalPanel(condition = "input.enigma_hemi=='both'",
+                                               checkboxInput("enigma_position", 
+                                                             "Subplots stacked?",
+                                                             value = TRUE)),
+                              checkboxInput("enigma_grid_axis",
+                                            "With grid and axis information?",
+                                            value = FALSE),
+                              checkboxInput("enigma_legend",
+                                            "Show legend?",
+                                            value = TRUE),
+                              
+                              conditionalPanel(condition = "!input.enigma_rank",
+                                               sliderInput("enigma_limits",
+                                                           "Color bar limits:",
+                                                           min = 0,
+                                                           max = 1,
+                                                           step = 0.05,
+                                                           value = 0.2)),
+                              checkboxInput("enigma_rank",
+                                            "Show data rank?",
+                                            value = FALSE),
+                              checkboxInput("enigma_line_color",
+                                            "Contour line in black (or white)?",
+                                            value = TRUE),
+                              sliderInput("enigma_line_size",
+                                          "Contour line size:",
+                                          min = 0,
+                                          max = 1,
+                                          step = 0.05,
+                                          value = 0.25),
+
+                              textInput("enigma_plot_area",
+                                        "Please Input Area(s) of Interest:",NULL)
+                            ),
+                            mainPanel(
+                              tabsetPanel(
+                                tabPanel("Plot", 
+                                         fluidRow(plotOutput("obsBrainPlot2"))
+                                ),
+                                tabPanel("Table", 
+                                         tableOutput('enigma_tbl'))
+                              )
+                            )
+                          )
+                 ),
+                 # end tabPanel ENIGMA in Brain
+                 
                  # start tabPanel obsBrain Viewer
                  tabPanel("obsBrain Viewer",
                           sidebarLayout(

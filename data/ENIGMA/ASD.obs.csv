@@ -1,0 +1,35 @@
+area,hemi,Thickness: LRmean
+banks superior temporal,lh,-0.03
+caudal anterior cingulate,lh,0.03
+caudal middle frontal,lh,0.08
+cuneus,lh,0.07
+entorhinal,lh,-0.21
+fusiform,lh,-0.19
+inferior parietal,lh,0.02
+inferior temporal,lh,-0.14
+isthmus cingulate,lh,0.08
+lateral occipital,lh,-0.05
+lateral orbito frontal,lh,0.05
+lingual,lh,-0.04
+medial orbito frontal,lh,0.15
+middle temporal,lh,-0.1
+parahippocampal,lh,-0.1
+para central,lh,-0.01
+pars opercularis,lh,0.01
+pars orbitalis,lh,0.12
+pars triangularis,lh,0.11
+pericalcarine,lh,0
+post central,lh,-0.03
+posterior cingulate,lh,0.13
+pre central,lh,-0.06
+precuneus,lh,0.03
+rostral anterior cingulate,lh,0.02
+rostral middle frontal,lh,0.2
+superior frontal,lh,0.17
+superior parietal,lh,-0.01
+superior temporal,lh,-0.08
+supramarginal,lh,-0.07
+frontal pole,lh,0.1
+temporal pole,lh,-0.13
+transverse temporal,lh,-0.12
+insula,lh,-0.07
