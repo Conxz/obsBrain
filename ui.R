@@ -57,11 +57,13 @@ ui <- navbarPage("obsBrain: Observatory of Brain",
                               
                             ),
                             mainPanel(
+                              h3("Gene Expression Pattern in the Human Brain"),
                               if(refresh_tag){
                                 withSpinner(plotOutput("obsBrainPlot1"), type=6, color = '#ffd700')
                               }else{
                                 plotOutput("obsBrainPlot1")
-                              }
+                              },
+                              textOutput("geneInfo", container = span)
                               )
                             )
                           ),
@@ -153,15 +155,24 @@ ui <- navbarPage("obsBrain: Observatory of Brain",
                                                checkboxInput("viewer_position", 
                                                              "Subplots stacked?",
                                                              value = TRUE)),
+                              checkboxInput("viewer_rank",
+                                            "Show data rank?",
+                                            value = FALSE),
+                              conditionalPanel(condition = "!input.viewer_rank",
+                                               sliderInput("viewer_limits",
+                                                           "Color bar limits:",
+                                                           min = -1, max = 1,
+                                                           step = 0.05,
+                                                           value = c(-1, 1)),
+                                               selectInput("viewer_cmap",
+                                                           "Select a color map:",
+                                                           choices = c('red-yellow','blue-white-red'))),
                               checkboxInput("viewer_grid_axis",
                                             "With grid and axis information?",
                                             value = FALSE),
                               checkboxInput("viewer_legend",
                                             "Show legend?",
                                             value = TRUE),
-                              checkboxInput("viewer_rank",
-                                            "Show data rank?",
-                                            value = FALSE),
                               sliderInput("viewer_line_size",
                                           "Contour line size:",
                                           min = 0,

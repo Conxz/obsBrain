@@ -9,6 +9,7 @@ library(scales)
 
 gene_area_dat1_all = NULL
 gene_area_dat2_all = NULL
+gene_info_dat = NULL
 
 readData <- function(session) {
   progress <- Progress$new(session)
@@ -19,13 +20,11 @@ readData <- function(session) {
   gene_area_file2 = file.path('./data/Arnatkeviciute2018', 'obs.DAT/obsDat.feather')
   gene_area_dat2_all <<- read_feather(gene_area_file2)  
   progress$set(value = 1, message = 'Loading...')
+  
+  gene_info_dat <<- read.csv(file.path('./info', 'obsGenes.csv'), header = TRUE)
+  
   progress$close()
 }
-# Data Loading without loading progress
-#gene_area_file1 = file.path('./data/French2015', 'obs.DAT/obsDat.feather') 
-#gene_area_dat1_all = read_feather(gene_area_file1)
-#gene_area_file2 = file.path('./data/Arnatkeviciute2018', 'obs.DAT/obsDat.feather')
-#gene_area_dat2_all = read_feather(gene_area_file2)
 
 server <- function(input, output, session) {
   #print(1)
@@ -117,7 +116,7 @@ server <- function(input, output, session) {
             plot.areas = plot_area_input,
             show.legend = input$gene_legend,
             mapping=aes(fill=expression)) +
-        scale_fill_gradient(low = "red", high = "yellow",name = gene_legend)
+        scale_fill_gradient(low = "red", high = "yellow",name = gene_legend) 
     }else{
       ggseg(data=gene_data,
             atlas=gene_atlas, 
@@ -133,6 +132,14 @@ server <- function(input, output, session) {
         theme_void()
     }
     })
+  
+  output$geneInfo <- renderText({
+    paste(input$gene_gene, 
+          ": ", gene_info_dat[gene_info_dat$gene_symbol==input$gene_gene,]$gene_name, " | ", 
+          "Entrez ID ", gene_info_dat[gene_info_dat$gene_symbol==input$gene_gene,]$entrez_id, " | ",
+          "Chr ", gene_info_dat[gene_info_dat$gene_symbol==input$gene_gene,]$chromosome,
+          sep='')
+  })
   
   # start obsBrainPlot2--------------------------------------------------------
   output$enigma_dataSelect <- renderUI({
@@ -289,8 +296,28 @@ server <- function(input, output, session) {
     if(input$viewer_rank){
       viewer_area_dat = rank(viewer_area_dat, ties.method = 'average')
       viewer_legend = 'Effect Rank'
+      pscale_fill = scale_fill_gradient(low = "red", high = "yellow", name = viewer_legend)
     }else{
       viewer_legend = 'Effect'
+      
+      vmin = round(min(viewer_area_dat),2)
+      vmax = round(max(viewer_area_dat),2)
+      if(vmax<0){
+        vmax=0
+      }else if(vmin>0){
+        vmin=0
+      }
+      updateSliderInput(session, "viewer_limits", min = vmin, max = vmax)
+      
+      if(input$viewer_cmap=='blue-white-red'){
+        pscale_fill = scale_fill_gradient2(midpoint = 0, low = "blue", high = "red", mid="white", 
+                                           limits = c(input$viewer_limits[1], input$viewer_limits[2]), oob=squish,
+                                           name = viewer_legend)
+      }else(
+        pscale_fill = scale_fill_gradient(low = "red", high = "yellow", name = viewer_legend, 
+                                          limits = c(input$viewer_limits[1], input$viewer_limits[2]))
+      )
+      
     }
     
     viewer_data = data.frame(
@@ -340,7 +367,7 @@ server <- function(input, output, session) {
             plot.areas = plot_area_input,
             show.legend = input$viewer_legend,
             mapping=aes(fill=effect)) +
-        scale_fill_gradient(low = "red", high = "yellow",name = viewer_legend)
+        pscale_fill
     }else{
       ggseg(data=viewer_data,
             atlas=viewer_atlas, 
@@ -352,7 +379,7 @@ server <- function(input, output, session) {
             plot.areas = plot_area_input,
             show.legend = input$viewer_legend,
             mapping=aes(fill=effect)) + 
-        scale_fill_gradient(low = "red", high = "yellow",name = viewer_legend) + 
+        pscale_fill + 
         theme_void()
     }
   })
