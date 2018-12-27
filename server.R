@@ -6,6 +6,7 @@ library(shiny)
 library(shinyalert)
 library(feather)
 library(scales)
+library(DT)
 
 gene_area_dat1_all = NULL
 gene_area_dat2_all = NULL
@@ -260,6 +261,22 @@ server <- function(input, output, session) {
     if(!file.exists(input_file)){return()}else{read.csv(input_file)[c('area','hemi',input$enigma_data)]} },  
     striped = TRUE,  
     hover = TRUE)
+  output$enigma_tbl_gene <- DT::renderDataTable({
+    input_file = file.path('./data/ENIGMA/enigmaGene',paste(paste(input$enigma_src,input$enigma_data,sep = '_'), 
+                                                            '.enigmeGene.obs.feather', sep=""))
+    if(file.exists(input_file)){
+      enigma_gene_dat = read_feather(input_file)
+      DT::datatable(enigma_gene_dat, rownames=FALSE,
+                    options = list(order=list(3, 'asc'),
+                                   lengthMenu = c(15, 25, 50), 
+                                   pageLength = 15, 
+                                   scrollY = '500px')
+                    )
+    }else{
+      shinyalert("Oops!", "Additional gene association analysis results to be uploaded!", type = "warning")
+      return()
+    }
+    })
   
   # end obsBrainPlot2
   
@@ -300,8 +317,8 @@ server <- function(input, output, session) {
     }else{
       viewer_legend = 'Effect'
       
-      vmin = round(min(viewer_area_dat),2)
-      vmax = round(max(viewer_area_dat),2)
+      vmin = signif(min(viewer_area_dat),2)
+      vmax = signif(max(viewer_area_dat),2)
       if(vmax<0){
         vmax=0
       }else if(vmin>0){

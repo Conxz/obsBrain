@@ -4,7 +4,7 @@
 library(shiny)
 library(shinyalert)
 library(markdown)
-#library(shinycssloaders)
+library(DT)
 
 dat_dir = './data/French2015'
 gene_list = read.csv(file.path(dat_dir, 'obs.gene_list.csv'),header = FALSE, col.names = c('gene'))
@@ -127,8 +127,10 @@ ui <- navbarPage("obsBrain: Observatory of Brain",
                                 tabPanel("Plot", 
                                          fluidRow(plotOutput("obsBrainPlot2"))
                                 ),
-                                tabPanel("Table", 
-                                         tableOutput('enigma_tbl'))
+                                tabPanel("Data", 
+                                         tableOutput('enigma_tbl')),
+                                tabPanel("Gene Table", 
+                                         DT::dataTableOutput('enigma_tbl_gene'))
                               )
                             )
                           )
@@ -166,7 +168,7 @@ ui <- navbarPage("obsBrain: Observatory of Brain",
                                                            value = c(-1, 1)),
                                                selectInput("viewer_cmap",
                                                            "Select a color map:",
-                                                           choices = c('red-yellow','blue-white-red'))),
+                                                           choices = c('blue-white-red','red-yellow'))),
                               checkboxInput("viewer_grid_axis",
                                             "With grid and axis information?",
                                             value = FALSE),
@@ -190,7 +192,7 @@ ui <- navbarPage("obsBrain: Observatory of Brain",
                                 tabPanel("Plot", 
                                          fluidRow(plotOutput("obsBrainPlot3"))
                                          ),
-                                tabPanel("Table", 
+                                tabPanel("Data", 
                                          tableOutput('viewer_tbl'))
                               )
                               )
