@@ -25,6 +25,6 @@ Observatory of Brain
 
 **Contact**
 - If you have any questions about this application, please feel free to contact me (Xiangzhen Kong, MPI, Nijmegen) via Email *xiangzhen.kong AT outlok.com* or Twitter [@xiangzhenkong](https://twitter.com/xiangzhenkong) or Github [obsBrain](https://github.com/Conxz/obsBrain).
-- Updated on Dec. 27, 2018.
+- Updated on Dec. 27, 2020.
 
 
