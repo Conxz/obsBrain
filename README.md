@@ -3,7 +3,7 @@ Observatory of Brain
 
 - With this application, researchers could easily search and visualise regional effects in the human brain. 
 - Data display is based on the Desikan–Killiany atlas (with 34 parcels in each hemisphere) from [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/), which has been widely used in multi-site collaborative project, e.g., ENIGMA. 
-- Links: Scripts on Github [obsBrain](https://github.com/Conxz/obsBrain) and application online [obsBrain](https://conxz.shinyapps.io/obsbrain/). 
+- Links: Scripts on Github [obsBrain](https://github.com/Conxz/obsBrain). 
 - We would like to acknowledge to [shiny](https://shiny.rstudio.com/), [ggseg](https://github.com/LCBC-UiO/ggseg), and [feather](https://cran.r-project.org/web/packages/feather/index.html) R packages.
 
 
